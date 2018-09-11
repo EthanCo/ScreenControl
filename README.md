@@ -20,7 +20,8 @@ Add it in your root build.gradle at the end of repositories:
 
 #### 初始化
 
-	ScreenControl screenControl = new ScreenControl(context,ScreenAdminReceiver.class);  
+	ScreenControl screenControl = ScreenControl.getInstance()
+            .init(App.getInstance(), ScreenAdminReceiver.class);
 
 #### 申请权限  
 
@@ -28,7 +29,7 @@ Add it in your root build.gradle at the end of repositories:
         screenControl.openScreenPermission(this, "程序操作需要相应权限，请激活设备管理器");
     }  
 
-#### 请求权限回调
+#### 申请权限的回调
 
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
