@@ -20,11 +20,13 @@ import static android.content.Context.POWER_SERVICE;
 
 public class ScreenControl {
     private static final String TAG = "Z-ScreenControl";
-    private ComponentName adminReceiver;
-    private DevicePolicyManager policyManager;
+    private final PowerManager mPowerManager;
+    private final ComponentName adminReceiver;
+    private final DevicePolicyManager policyManager;
 
     public ScreenControl(Context context,Class<?> receiverClass) {
         adminReceiver = new ComponentName(context, receiverClass);
+        mPowerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         policyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
     }
 
@@ -32,12 +34,9 @@ public class ScreenControl {
 
     /**
      * 亮屏
-     *
-     * @param context
      */
-    public void turnOn(Context context) {
+    public void turnOn() {
         Log.i(TAG, "turnOn");
-        PowerManager mPowerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         PowerManager.WakeLock mWakeLock = mPowerManager.newWakeLock(
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
         mWakeLock.acquire();

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    screenControl.turnOn(getApplication());
+                    screenControl.turnOn();
                     break;
                 case 2:
                     break;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         buttonOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                screenControl.turnOn(getApplication());
+                screenControl.turnOn();
             }
         });
 
