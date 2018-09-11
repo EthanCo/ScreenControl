@@ -16,7 +16,8 @@ import com.ethanco.screen_control.ScreenControl;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Z-MainActivity";
 
-    private ScreenControl screenControl = new ScreenControl(App.getInstance(),ScreenAdminReceiver.class);
+    private ScreenControl screenControl = ScreenControl.getInstance()
+            .init(App.getInstance(), ScreenAdminReceiver.class);
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

@@ -20,18 +20,30 @@ import static android.content.Context.POWER_SERVICE;
 
 public class ScreenControl {
     private static final String TAG = "Z-ScreenControl";
-    private final PowerManager mPowerManager;
-    private final ComponentName adminReceiver;
-    private final DevicePolicyManager policyManager;
+    private PowerManager mPowerManager;
+    private ComponentName adminReceiver;
+    private DevicePolicyManager policyManager;
 
-    public ScreenControl(Context context) {
-        this(context, ScreenAdminReceiver.class);
+    private ScreenControl() {
     }
 
-    public ScreenControl(Context context,Class<?> receiverClass) {
+    private static class SingleTonHolder {
+        private static ScreenControl sInstance = new ScreenControl();
+    }
+
+    public static ScreenControl getInstance() {
+        return SingleTonHolder.sInstance;
+    }
+
+    public ScreenControl init(Context context) {
+        return init(context, ScreenAdminReceiver.class);
+    }
+
+    public ScreenControl init(Context context,Class<?> receiverClass) {
         adminReceiver = new ComponentName(context, receiverClass);
         mPowerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         policyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+         return this;
     }
 
     public static final int SCREEN_REQUEST_CODE = 15471;
