@@ -24,6 +24,10 @@ public class ScreenControl {
     private final ComponentName adminReceiver;
     private final DevicePolicyManager policyManager;
 
+    public ScreenControl(Context context) {
+        this(context, ScreenAdminReceiver.class);
+    }
+
     public ScreenControl(Context context,Class<?> receiverClass) {
         adminReceiver = new ComponentName(context, receiverClass);
         mPowerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
